@@ -42,13 +42,22 @@ predicted = cross_validation.cross_val_predict(clf, X,df_label, cv=10)
 print metrics.accuracy_score(df_label, predicted)
 print metrics.classification_report(df_label, predicted)
 
+df1=df[:89][['bx','by','bz','bl','bm','bn','bmag','vx','vy','vz','vmag','np','tpar','tper']]
+df1.index=pandas.DatetimeIndex(freq="w",start=0,periods=89)
 from statsmodels.tsa.seasonal import seasonal_decompose
 series = df1
 result = seasonal_decompose(series, model='additive')
-print(result.trend)
-print(result.seasonal)
-print(result.resid)
-print(result.observed)
+# print(result.trend)
+# print(result.seasonal)
+# print(result.resid)
+# print(result.observed)
+
+from statsmodels.tsa.seasonal import seasonal_decompose
+from matplotlib import pyplot
+series = df1
+result = seasonal_decompose(series, model='additive')
+result.plot()
+pyplot.show()
 
 series_size=89
 n_features=14
